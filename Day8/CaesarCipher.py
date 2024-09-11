@@ -7,20 +7,32 @@ text = input("Type your message:\n").lower()
 shift = int(input("Type the shift number:\n")) % 26
 
 def encrypt(text, shift):
+    print("Let's encode!")
     encrypted_list = [] 
     for i in text:
-        encrypted_list.append(alphabet[text.index(i) + shift - 1])
-    
+        if i not in alphabet:
+            encrypted_list.append(i)
+        else:
+            encrypted_list.append(alphabet[text.index(i) + shift])
     encrypted_text = "".join(encrypted_list)
-    print(encrypted_text)
+    print(f"Encrypt code: {encrypted_text}")
   
-# def decrypt(text, shift):
+def decrypt(text, shift):
+    print("Let's decode!")
+    decrypted_list = []
+    for i in text:
+        if i not in alphabet:
+            decrypted_list.append(i)
+        else:
+            decrypted_list.append(alphabet[text.index(i) - shift])
     
+    decrypted_text = "".join(decrypted_list)
+    print(f"Decrypt code: {decrypted_text}")
+    
+def ceasar(text, shift, direction):
+    if direction == 'encode':    
+        encrypt(text, shift)
+    else:
+        decrypt(text, shift)
 
-
-# if direction == 'encode':    
-#     encrypt(text, shift)
-# else:
-#     decrypt(text, shift)
-
-encrypt(text, shift)
+ceasar(text, shift, direction)
