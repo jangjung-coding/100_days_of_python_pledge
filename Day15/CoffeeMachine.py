@@ -1,6 +1,6 @@
 print("Welcome to the coffee machine")
 
-Menu = {
+MENU = {
     "espresso": {
         "ingredients": {
             "water": 50,
@@ -26,21 +26,47 @@ Menu = {
     }
 }
 
+profit = 0
+
+resources = {
+    "water": 300,
+    "milk": 200,
+    "coffee": 100
+}
+
+def is_resource_sufficient(order_ingredients):
+    for item in order_ingredients:
+        if order_ingredients[item] >= resources[item]:
+            print(f"Sorry there is not enough {item}.")
+            return False
+    return True
+        
+            
+        
+
+is_on = True
 # 1. Prompt user by asking "What would you like?" (espresso/latte/cappuccino)
-while True:
-    order = input("What would you like? (espresso/latte/cappuccino): ")
-    if order in Menu.keys():
-        break
-    else:
-        print("Invalid order. Please try again.")
+while is_on:
+    choice = input("What would you like? (espresso/latte/cappuccino): ")
     
 # 2. Turn off the Coffee Machine by entering "off" to the prompt.
+    if choice == "off":
+        is_on = False
 
 # 3. Print report.
+    elif choice == "report":
+        print(f"Water: {resources['water']}ml")
+        print(f"Milk: {resources['milk']}ml")
+        print(f"Coffee: {resources['coffee']}g")
+        print(f"Money: ${profit}")
 
 # 4. Check resources suufficient?
-
+    else:
+        drink = MENU[choice]
+        is_resource_sufficient(drink["ingredients"])
+        
 # 5. Process coins.
+
 
 # 6. Check transaction successful?
 
