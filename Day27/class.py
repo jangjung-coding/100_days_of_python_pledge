@@ -7,7 +7,23 @@ window.title("My First GUI Program")
 window.minsize(width=500, height=300)
 
 my_label = tk.Label(text="I am a Label", font=("Arial", 24, "bold"))
-my_label.pack(expand=True)
+my_label.pack()
+
+my_label["text"] = "New Text"
+my_label.config(text="New Text")
+
+#Entry
+entry = tk.Entry(width=10)
+entry.pack()
+new_text = entry.get()
+
+#Button
+button = tk.Button(text='Click', command=lambda:my_label.config(text=new_text))
+button.pack()
+
+
+window.mainloop()
+
 
 # Advanced Python Arguments
 
@@ -26,5 +42,3 @@ my_label.pack(expand=True)
 #     print(n)
 
 # calculate(2, add=3, multiply=5)
-
-window.mainloop()
