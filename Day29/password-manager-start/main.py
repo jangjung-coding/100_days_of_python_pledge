@@ -1,11 +1,33 @@
+import tkinter as tk
+from tkinter import messagebox
+import random
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+def generate_password():
+
+    password = ""
+    
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
-
-
+def save():
+    
+    website = website_entry.get()
+    email = email_entry.get()
+    password = password_entry.get()
+    
+    if len(website) == 0 or len(password) == 0:
+        messagebox.showinfo(title="Oops", message="Please don't leave any fields empty!")
+        return
+    
+    is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} \nPassword: {password} \nIs it ok to save?")
+    
+    if is_ok:
+        with open("list.txt", "a") as list_file:
+            list_file.write(f"{website} | {email} | {password}\n")
+            website_entry.delete(0, tk.END) # clear the entry
+            password_entry.delete(0, tk.END)
+        
 # ---------------------------- UI SETUP ------------------------------- #
-import tkinter as tk
-
 window = tk.Tk() # create a window
 window.title("Password Manager") # set the title of the window
 window.config(padx=50, pady=50) # set the padding of the window
@@ -38,10 +60,10 @@ password_entry = tk.Entry(width=18) # create an entry
 password_entry.grid(column=1, row=3) # set the position of the entry
 
 # Buttons
-generate_password_button = tk.Button(text="Generate Password") # create a button
+generate_password_button = tk.Button(text="Generate Password", command=generate_password) # create a button
 generate_password_button.grid(column=2, row=3) # set the position of the button
 
-add_button = tk.Button(text="Add", width=33) # create a button
+add_button = tk.Button(text="Add", width=33, command=save) # create a button
 add_button.grid(column=1, row=4, columnspan=2) # set the position of the button
 
 window.mainloop() # keep the window open
