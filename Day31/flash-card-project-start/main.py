@@ -29,7 +29,7 @@ def flip_card():
     canvas.itemconfig(card_word, text=current_card["English"], fill="white")
     canvas.itemconfig(card_background, image=card_back_img)
     
-def is_known():
+def is_known(): 
     to_learn.remove(current_card)
     data = pd.DataFrame(to_learn)
     data.to_csv('/Users/computer/Desktop/100_days_of_python_pledge/Day31/flash-card-project-start/data/words_to_learn.csv', index=False)
