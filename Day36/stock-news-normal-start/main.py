@@ -10,6 +10,7 @@ NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
 load_dotenv()
 STOCK_API_KEY = os.getenv('STOCK_API_KEY')
+NEWS_API_KEY = os.getenv('NEWS_API_KEY')
 
     ## STEP 1: Use https://www.alphavantage.co/documentation/#daily
 # When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -38,16 +39,22 @@ difference = abs(float(yesterday_closing_price) - float(day_before_yesterday_dat
 #TODO 4. - Work out the percentage difference in price between closing price yesterday and closing price the day before yesterday.
 percentage_difference = (difference / float(yesterday_closing_price)) * 100
 print(percentage_difference)
+
 #TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
 if percentage_difference > 3:
-    print("Get News")
-    ## STEP 2: https://newsapi.org/ 
+    news_params = {
+        "apiKey": NEWS_API_KEY,
+        "qInTitle": COMPANY_NAME
+    }
+    ## STEP 2: https://newsapi.org/
     # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
-
+    
 #TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
-
+    news_response = requests.get(NEWS_ENDPOINT, params = news_params)
+    articles = news_response.json()['articles']
+    
 #TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
-
+    three_articles = articles[:3]
 
     ## STEP 3: Use twilio.com/docs/sms/quickstart/python
     #to send a separate message with each article's title and description to your phone number. 
